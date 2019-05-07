@@ -56,6 +56,15 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
+          enforce: 'pre',
+          test: /\.tsx?$/,
+          loader: 'tslint-loader',
+          options: {
+            typeCheck: true,
+            fix: true,
+          },
+        },
+        {
           test: /\.tsx?$/,
           loader: 'ts-loader',
         },

@@ -1,7 +1,7 @@
-import * as React from 'react';
+import * as React from 'react'
 
 export interface Props {
-  content: string;
+  content: string
 }
 
 export default class Hello extends React.Component<Props, {}> {
