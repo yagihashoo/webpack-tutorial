@@ -7,20 +7,27 @@ const src = __dirname + '/src'
 const dist = __dirname + '/dist'
 
 module.exports = (env, argv) => {
-  const IS_DEV = argv.mode === 'development'
+  const PROD = argv.mode === 'production'
 
   return {
     mode: 'development',
     context: src,
     entry: {
-      app: './js/app.js',
+      app: './js/App.tsx',
     },
     output: {
       filename: 'js/[name].bundle.js',
       path: dist,
       publicPath: '/',
     },
-    devtool: IS_DEV ? 'source-map' : 'none',
+    devtool: PROD ? 'none': 'source-map',
+    resolve: {
+      extensions: [
+        '.ts',
+        '.tsx',
+        '.js',
+      ],
+    },
     devServer: {
       inline: true,
       contentBase: dist,
@@ -38,31 +45,19 @@ module.exports = (env, argv) => {
           },
         },
       },
-      minimizer: IS_DEV
-        ? []
-        : [
-          new TerserPlugin({
-            terserOptions: {
-              compress: { drop_console: true }
-            },
-          }),
-        ],
+      minimizer: PROD ? [
+        new TerserPlugin({
+          terserOptions: {
+            compress: { drop_console: true }
+          },
+        }),
+      ] : [],
     },
     module: {
       rules: [
         {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loader: 'babel-loader',
-          options: {
-            presets: [['@babel/preset-env', { modules: false }]],
-          },
-        },
-        {
-          enforce: 'pre',
-          test: /\.js$/,
-          exclude: /node_modules/,
-          loader: 'eslint-loader',
+          test: /\.tsx?$/,
+          loader: 'ts-loader',
         },
         {
           test: /\.html$/,
@@ -72,7 +67,7 @@ module.exports = (env, argv) => {
     },
     plugins: [
       new webpack.ProvidePlugin({
-        $: 'jquery',
+        _: 'lodash',
       }),
       new HtmlWebpackPlugin({
         filename: `${dist}/index.html`,
