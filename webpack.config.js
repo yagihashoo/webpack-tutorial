@@ -69,6 +69,10 @@ module.exports = (env, argv) => {
         {
           test: /\.html$/,
           loader: 'html-loader'
+        },
+        {
+          test: /\.css$/,
+          loader: 'styled-jsx-css-loader'
         }
       ]
     },
