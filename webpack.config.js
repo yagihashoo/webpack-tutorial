@@ -1,7 +1,6 @@
 const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path')
 
 const src = __dirname + '/src'
 const dist = __dirname + '/dist'
@@ -13,7 +12,7 @@ module.exports = (env, argv) => {
     mode: 'development',
     context: src,
     entry: {
-      app: './js/App.tsx'
+      app: './js/App.jsx'
     },
     output: {
       filename: 'js/[name].bundle.js',
@@ -22,7 +21,7 @@ module.exports = (env, argv) => {
     },
     devtool: PROD ? 'none' : 'source-map',
     resolve: {
-      extensions: ['.ts', '.tsx', '.js']
+      extensions: ['.js', '.jsx']
     },
     devServer: {
       inline: true,
@@ -54,17 +53,24 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
-          enforce: 'pre',
-          test: /\.tsx?$/,
-          loader: 'tslint-loader',
+          test: /\.jsx?$/,
+          loader: 'babel-loader',
+          exclude: /node_modules/,
           options: {
-            typeCheck: true,
-            fix: true
+            presets: [
+              ['@babel/preset-env', { modules: false }],
+              ['@babel/preset-react', {}]
+            ]
           }
         },
         {
-          test: /\.tsx?$/,
-          loader: 'ts-loader'
+          enforce: 'pre',
+          test: /\.jsx?$/,
+          exclude: /node_modules/,
+          loader: 'eslint-loader',
+          options: {
+            fix: true
+          }
         },
         {
           test: /\.html$/,

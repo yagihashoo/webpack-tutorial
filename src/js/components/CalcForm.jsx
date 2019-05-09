@@ -8,9 +8,7 @@ const axios = axiosBase.create({
   responseType: 'json'
 })
 
-export interface Props {}
-
-export default class CalcForm extends React.Component<Props, {}> {
+export default class CalcForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -21,7 +19,7 @@ export default class CalcForm extends React.Component<Props, {}> {
     )
   }
 
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  handleSubmit(e) {
     e.preventDefault()
     axios.get('/add.php')
   }

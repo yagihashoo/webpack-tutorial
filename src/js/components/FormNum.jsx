@@ -1,13 +1,7 @@
 import * as React from 'react'
+import * as PropTypes from 'prop-types'
 
-export interface Props {
-  name: string
-  autofocus: boolean
-}
-
-export default class FormNum extends React.Component<Props, {}> {
-  static defaultProps: Props = { name: '', autofocus: false }
-
+class FormNum extends React.Component {
   render() {
     return (
       <label>
@@ -30,3 +24,12 @@ export default class FormNum extends React.Component<Props, {}> {
     )
   }
 }
+
+FormNum.propTypes = {
+  name: PropTypes.string,
+  autofocus: PropTypes.boolean
+}
+
+FormNum.defaultProps = { name: '', autofocus: false }
+
+export default FormNum

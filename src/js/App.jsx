@@ -2,9 +2,7 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import CalcForm from './components/CalcForm'
 
-export interface Props {}
-
-class Layout extends React.Component<Props, {}> {
+class Layout extends React.Component {
   render() {
     return (
       <div>
