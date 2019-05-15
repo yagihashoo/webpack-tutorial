@@ -21,6 +21,8 @@ export default class CalcForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault()
-    axios.get('/add.php')
+    axios.post('/add.php', { a: 1, b: 2 }).then(res => {
+      alert(res.data.result)
+    })
   }
 }
