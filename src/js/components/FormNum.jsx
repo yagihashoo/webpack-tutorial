@@ -4,13 +4,15 @@ import * as PropTypes from 'prop-types'
 class FormNum extends React.Component {
   render() {
     return (
-      <label>
-        {this.props.name}:
-        <input
-          type="number"
-          name={this.props.name}
-          autoFocus={this.props.autofocus}
-        />
+      <div>
+        <label>
+          {this.props.name}:
+          <input
+            type="number"
+            name={this.props.name}
+            autoFocus={this.props.autofocus}
+          />
+        </label>
         <style jsx>{`
           label {
             display: block;
@@ -20,14 +22,14 @@ class FormNum extends React.Component {
             margin-left: 1em;
           }
         `}</style>
-      </label>
+      </div>
     )
   }
 }
 
 FormNum.propTypes = {
   name: PropTypes.string,
-  autofocus: PropTypes.boolean
+  autofocus: PropTypes.bool
 }
 
 FormNum.defaultProps = { name: '', autofocus: false }
